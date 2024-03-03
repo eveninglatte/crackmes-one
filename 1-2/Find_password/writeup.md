@@ -70,6 +70,7 @@ undefined8 main(void)
     local_48 = "9J<q=^':h*#*d:#+Jh*9)#'+#>)'Bs";
     printf("Enter a Password: ");
     strcmp_retval = (int)some_char;
+    // dont worry about scanf() not having a 2nd argument
     __isoc99_scanf("%s");
     encrypt(some_char,strcmp_retval);
     strcmp_retval = strcmp(some_char,local_48);
@@ -137,7 +138,7 @@ void encrypt(char *__block, int __edflag)
 
 So, it seems that the `encrypt()` function just subtracts 10 from every letter in `input`.
 
-Given all that, I created a small keygen that generated the password:
+Given all that, I created a small keygen that reverses the encryption and generates the password from the encrypted key:
 
 ```py
 key = "9J<q=^':h*#*d:#+Jh*9)#'+#>)'Bs"
@@ -150,6 +151,6 @@ print(key_decrypted)
 
 Obviously, you can do the ascii shift by hand if you want :)
 
-The keygen generates the key `CTF{Gh1Dr4-4nD-5Tr4C3-15-H31L}`, which proves to be correct:
+The keygen generates the password `CTF{Gh1Dr4-4nD-5Tr4C3-15-H31L}`, which proves to be correct:
 
 ![](assets/3.png)
