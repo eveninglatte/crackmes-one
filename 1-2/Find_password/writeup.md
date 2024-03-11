@@ -154,3 +154,16 @@ Obviously, you can do the ascii shift by hand if you want :)
 The keygen generates the password `CTF{Gh1Dr4-4nD-5Tr4C3-15-H31L}`, which proves to be correct:
 
 ![](assets/3.png)
+
+### Patching to remove the the `ptrace()` call
+Given the `ptrace()` guard, the program can't be subjected to dynamic analysis via a debugger. 
+
+However, we can modify the binary to remove the `CALL` assembly instruction, which would get rid of the guard.
+
+Here, I used `radare2` with the `-w` flag enabled to patch the binary:
+
+![](assets/4.png)
+
+The `CALL` instruction is at address `0x00001207`, so i moved to it using `s`, then used `wao nop` to replace the current instruction with `NOP`s:
+
+![](assets/5.png)
