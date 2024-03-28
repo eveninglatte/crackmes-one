@@ -81,7 +81,7 @@ Let's examine the contents of the stack first (x86 is little-endian, hence the m
 
 
 Given how we're searching the stack and looking for an address to a function it would be sensible to search for a return address (the one that is pushed on the stack when the CALL instruction is executed).
-Since we can only proceed down the stack here and `printf()` is located in `main()`, we should be able to locate the return address of `main()` (that was being pushed there by `_libc_start_main()`).
+Since we can only proceed down the stack here and `printf()` is located in `main()`, we should be able to locate the address of `main()` (that was being pushed there by `_libc_start_main()`).
 
 And here it is, as the 15th "argument":
 
