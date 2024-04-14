@@ -81,7 +81,7 @@ Let's examine the contents of the stack first (x86 is little-endian, hence the m
 
 
 Given how we're searching the stack and looking for an address to a function it would be sensible to search for a return address (the one that is pushed on the stack when the CALL instruction is executed).
-Since we can only proceed down the stack here and `printf()` is located in `main()`, we should be able to locate the address of `main()` (that was pushed there by `_libc_start_main()`).
+Since we can only proceed down the stack here and `printf()` is located in `main()`, we should be able to locate the address of `main()` (that was pushed there by `_libc_start_main()`[^1]).
 
 And here it is, as the 15th "argument":
 
@@ -113,3 +113,6 @@ Which yields:
 ![](assets/13.png)
 
 I attached this script as a file in the archive (`keygen.py`).
+
+[^1]: More precisely, it's passed as an argument to `__libc_start_main()` and there it's pushed on the stack as a local variable. 
+You can verify this by setting a hardware watchpoint in `gdb` at the address where we first see the address of `main()` (here it would be ` watch *0x7fffffffdc98`) and restarting the program to see when during the execution the address is pushed.
